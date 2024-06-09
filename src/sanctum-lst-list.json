@@ -1,0 +1,761 @@
+{
+  "sanctum_lst_list": [
+    {
+      "decimals": 9,
+      "logo_uri": "https://raw.githubusercontent.com/igneous-labs/lst-offchain-metadata/master/fpSOL/fpSOL.jpg",
+      "mint": "fpSoL8EJ7UA5yJxFKWk1MFiWi35w8CbH36G5B9d7DsV",
+      "name": "FP SOL",
+      "symbol": "fpSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "GutG5bcmEZw15WmPHNVMWHU77c6t8CEinUEdPLYz3doa",
+        "program": "SanctumSplMulti",
+        "validator_list": "DfVmEvxkRBgFfYHgrtN9AcEv7gWXUtB1QZ6hkD3aYzsc"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://bpjbeqpzm6vvgd5eafntpuhxgbxdfbbd2jhvnbwp33ql7xgcbo6q.arweave.net/C9ISQflnq1MPpAFbN9D3MG4yhCPST1aGz97gv9zCC70",
+      "mint": "Fi5GayacZzUrfaCRCJtBz2vSYkGF56xjgCceZx5SbXwq",
+      "name": "dogwifSOL",
+      "symbol": "wifSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "9Z8yimuc3bQCWLDyMhe6jfWqNk9EggyJZUo8TLnYsqhN",
+        "program": "SanctumSplMulti",
+        "validator_list": "DfCHoraRZ6XWmqiqCtqTD27GHMUh4YB1oxRJMhMHJYNx"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://raw.githubusercontent.com/igneous-labs/lst-offchain-metadata/master/pathSOL/pathSOL.png",
+      "mint": "pathdXw4He1Xk3eX84pDdDZnGKEme3GivBamGCVPZ5a",
+      "name": "Pathfinders SOL",
+      "symbol": "pathSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "GM7TwD34n8HmDP9XcT6bD3JJuNniKJkrKQinHqmqHarz",
+        "program": "SanctumSplMulti",
+        "validator_list": "2WqKyuuonwMhjYpvLFZSBibBddB8DNVTij5AuWYFs4KD"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://static.jup.ag/jupSOL/icon.png",
+      "mint": "jupSoLaHXQiZZTSfEWMTRRgpnyFm8f6sZdosWBjx93v",
+      "name": "Jupiter Staked SOL",
+      "symbol": "JupSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "8VpRhuxa7sUUepdY3kQiTmX9rS5vx4WgaXiAnXq4KCtr",
+        "program": "SanctumSplMulti",
+        "validator_list": "AXL4v4bbzRkqwHmLc9A1YzHQmRhmG9Q93i1e6CPG2bEK"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://static.jup.ag/jupSOL/icon.png",
+      "mint": "BgYgFYq4A9a2o5S1QbWkmYVFBh7LBQL8YvugdhieFg38",
+      "name": "Juicing Jupiter SOL",
+      "symbol": "juicingJupSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "4mBwcXKJN2vz6MJikNTgVBSY5vYnyjZk7txd8j3K46Ei",
+        "program": "SanctumSplMulti",
+        "validator_list": "6j13ZPRzMcyjJqUd5fJYfqa6pqhmDfD87mDgjMGvnff2"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://raw.githubusercontent.com/phaselabscrypto/.github/main/profile/public/phaseSOL.png",
+      "mint": "phaseZSfPxTDBpiVb96H4XFSD8xHeHxZre5HerehBJG",
+      "name": "Phase Labs SOL",
+      "symbol": "phaseSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "phasejkG1akKgqkLvfWzWY17evnH6mSWznnUspmpyeG",
+        "program": "SanctumSplMulti",
+        "validator_list": "phaseeExd43yGjjad2FZSigdG9UTRpMdxS4aMerx821"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://arweave.net/3ryTeptAwpdI57CnL1tfitjnitj2s6P_A_m2RiARE7M",
+      "mint": "BANXyWgPpa519e2MtQF1ecRbKYKKDMXPF1dyBxUq9NQG",
+      "name": "banxSOL",
+      "symbol": "banxSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "4fdMvFuyNboQ5Kr93X16f1tFcTeEkvfNwNAeSrzY3afb",
+        "program": "SanctumSplMulti",
+        "validator_list": "25vgWN38FKfcbejXcNvgwKJ2YR6TBudgxmkr5NhRJKzT"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://arweave.net/vIJdshKQBC9cE8V190WgRhYqdjb8HhUJAMmP69gvAFI",
+      "mint": "iceSdwqztAQFuH6En49HWwMxwthKMnGzLFQcMN3Bqhj",
+      "name": "iceSOL",
+      "symbol": "iceSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "EVXQHaLSJyUNrnBGfXUnvEi4DvVz4UJ3GnoKGVQVxrjr",
+        "program": "SanctumSplMulti",
+        "validator_list": "4uSMQWg19CNj4qEnTDfZpRuTKbUTeFF1KRACS7PSzRjX"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://bafybeiefm3rrcglj2pithpllphuqataudxwepdt66jlmted3mfhybhvg34.ipfs.w3s.link/128x128.png",
+      "mint": "fmSoLKzBY6h9b5RQ67UVs7xE3Ym6mx2ChpPxHdoaVho",
+      "name": "SolanaFM Staked SOL",
+      "symbol": "fmSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "5FYTvZgc7QEGZSDmbJn5hrtjtRtyFZo5vR7gL1jJYanE",
+        "program": "SanctumSplMulti",
+        "validator_list": "khxkNN9Ke1evzgBM1koNGcXfDZ2xLUJorEpUQu1zsot",
+        "vote_account": "3zH61eoL7aL626arSqKEbfsx2kPb6P3WFU9ERUWciPSq"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://arweave.net/vmJI1aPZNfTTIWH7ZLFxBP1VK7ptapg1hBukoDDNPME",
+      "mint": "pWrSoLAhue6jUxUkbWgmEy5rD9VJzkFmvfTDV5KgNuu",
+      "name": "Power Staked SOL",
+      "symbol": "pwrSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "DfiQgSvpW3Dy4gKfhtdHnWGHwFUrE8exvaxqjtMtAVxk",
+        "program": "SanctumSpl",
+        "validator_list": "9PYGjoQhY89f8t3NVtq82MN91RDvoEkkFtcQyuVAuWGL",
+        "vote_account": "LodezVTbz3v5GK6oULfWNFfcs7D4rtMZQkmRjnh65gq"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://superfast.org/supersollogo.png",
+      "mint": "suPer8CPwxoJPQ7zksGMwFvjBQhjAHwUMmPV4FVatBw",
+      "name": "Superfast Staked SOL",
+      "symbol": "superSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "4dZDUL3BFJUFeqS3Y3cwkc84Rs6mgVHRYGt1LJvhooW4",
+        "program": "SanctumSpl",
+        "validator_list": "F7MiLkUWkBVee6d3Evppgcr7iNKgG94H5PMu9WCjj4mQ",
+        "vote_account": "R1vAoSPFQdCc6wsAEMtxWXjqptSeN1YUiq2Zni1of21"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://shdw-drive.genesysgo.net/5ohvXVJ7f3HxnwYGnXKdECWC3KFcU95dHu7S7x69Y1sA/logo_rev.svg",
+      "mint": "jucy5XJ76pHVvtPZb5TKRcGQExkwit2P5s4vY8UzmpC",
+      "name": "Juicy SOL",
+      "symbol": "jucySOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "AZGSr2fUyKkPLMhAW6WUEKEsQiRMAFKf8Fjnt4MFFaGv",
+        "program": "SanctumSpl",
+        "validator_list": "GzsFwdtyhGmBEEh7hnfJi6u6rXJYMDPjL8Keo6Q2dZYK",
+        "vote_account": "juicQdAnksqZ5Yb8NQwCLjLWhykvXGktxnQCDvMe6Nx"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://arweave.net/ms-FdIyJ8TxEJOb2SAYhfyrLop7TDrCEjD-I-oIl5u4",
+      "mint": "BonK1YhkXEGLZzwtcvRTip3gAL9nCeQD7ppZBLXhtTs",
+      "name": "bonkSOL",
+      "symbol": "bonkSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "ArAQfbzsdotoKB5jJcZa3ajQrrPcWr2YQoDAEAiFxJAC",
+        "program": "SanctumSpl",
+        "validator_list": "Ea2ATXQgQrUXGdMPXUbdNw8SmV3S6RSzsiff8AcBLP2G",
+        "vote_account": "J1to3PQfXidUUhprQWgdKkQAMWPJAEqSJ7amkBDE9qhF"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://drift-public.s3.eu-central-1.amazonaws.com/dSOL.svg",
+      "mint": "Dso1bDeDjCQxTrWHqUUi63oBvV7Mdm6WaobLbQ7gnPQ",
+      "name": "Drift Staked SOL",
+      "symbol": "dSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "9mhGNSPArRMHpLDMSmxAvuoizBqtBGqYdT8WGuqgxNdn",
+        "program": "SanctumSpl",
+        "validator_list": "4dRHzwW2npecE4riAKibHccnMib5jBu9RdFf8bQ2o7Mo",
+        "vote_account": "DriFTm3wM9ugxhCA1K3wVQMSdC4Dv4LNmyZMmZiuHRpp"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://solanacompass.com/compass.png",
+      "mint": "Comp4ssDzXcLeu2MnLuGNNFC4cmLPMng8qWHPvzAMU1h",
+      "name": "Compass SOL",
+      "symbol": "compassSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "AwDeTcW6BovNYR34Df1TPm4bFwswa4CJY4YPye2LXtPS",
+        "program": "SanctumSpl",
+        "validator_list": "DgSrw8Kmww4wVC1KaHFrEYE3UiCupNpLde2CcUEmGYsx",
+        "vote_account": "EARNynHRWg6GfyJCmrrizcZxARB3HVzcaasvNa8kBS72"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://arweave.net/zR2ZKXpwmG4hMpqhGXlvz-B7PMs34cXxVb2gC1DmlDo",
+      "mint": "picobAEvs6w7QEknPce34wAE4gknZA9v5tTonnmHYdX",
+      "name": "picoSOL",
+      "symbol": "picoSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "8Dv3hNYcEWEaa4qVx9BTN1Wfvtha1z8cWDUXb7KVACVe",
+        "program": "SanctumSpl",
+        "validator_list": "46A5KjX8J6FAUTXwcE8iJkmM7igK3v8vy1MD74cZNWVE",
+        "vote_account": "3xjfK9C9YNcta8MvK1US4sQ3bc6DEjoJoR3qLExGf9xE"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://raw.githubusercontent.com/Overclock-Validator/assets/main/img.png",
+      "mint": "GRJQtWwdJmp5LLpy8JWjPgn5FnLyqSJGNhn5ZnCTFUwM",
+      "name": "Overclock SOL",
+      "symbol": "clockSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "6e2LpgytfG3RqMdYuPr3dnedv6bmHQUk9hH9h2fzVk9o",
+        "program": "SanctumSpl",
+        "validator_list": "9hVn2PQWj7i3sSEzPhzgUaAAscjRJXd8v54mmR7Y3s9U",
+        "vote_account": "AS3nKBQfKs8fJ8ncyHrdvo4FDT6S8HMRhD75JjCcyr1t"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://shdw-drive.genesysgo.net/AHzrxKBP6fkj6sozaZ2uzv6nniJLRFnZNZQ6rEPfZM5E/hub.png",
+      "mint": "HUBsveNpjo5pWqNkH57QzxjQASdTVXcSK7bVKTSZtcSX",
+      "name": "SolanaHub staked SOL",
+      "symbol": "hubSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "ECRqn7gaNASuvTyC5xfCUjehWZCSowMXstZiM5DNweyB",
+        "program": "SanctumSpl",
+        "validator_list": "5Aueao7mrWvL4GFswwdXmFCRw1j7AjYb8aJeMFeYv6zo",
+        "vote_account": "7K8DVxtNJGnMtUY1CQJT5jcs8sFGSZTDiG7kowvFpECh"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://shdw-drive.genesysgo.net/CqCTE2k6ext17JLE7EFk6pXAznS7m1rLJaN9nHxUAwpc/stronghold.png",
+      "mint": "strng7mqqc1MBJJV6vMzYbEqnwVGvKKGKedeCvtktWA",
+      "name": "Stronghold LST",
+      "symbol": "strongSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "GZDX5JYXDzCEDL3kybhjN7PSixL4ams3M2G4CvWmMmm5",
+        "program": "SanctumSpl",
+        "validator_list": "6deuDrZgAJ57e2qKV8yykidjzWxAsBfdaiakG8yjX3Tk",
+        "vote_account": "Ac1beBKixfNdrTAac7GRaTsJTxLyvgGvJjvy4qQfvyfc"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://arweave.net/juI8rxciTff6pljaDiXMEq5klSOngQol_8lvyokGGwY",
+      "mint": "LnTRntk2kTfWEY6cVB8K9649pgJbt6dJLS1Ns1GZCWg",
+      "name": "Lantern Staked SOL",
+      "symbol": "lanternSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "LW3qEdGWdVrxNgxSXW8vZri7Jifg4HuKEQ1UABLxs3C",
+        "program": "SanctumSpl",
+        "validator_list": "GM7T5roJWhQchJErSZdPeHvkw43MkvVC6b8DK4BNuidP",
+        "vote_account": "FACqsS19VScz8oo2YhdMg35EsAy6xsCZ9Y58eJXGv8QJ"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://arweave.net/C2P2vlj4GZF1ZfAj5GV7B7cvpvdiz2tDEwh6hOfml_o",
+      "mint": "st8QujHLPsX3d6HG9uQg9kJ91jFxUgruwsb1hyYXSNd",
+      "name": "Stake City SOL",
+      "symbol": "stakeSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "2jjK1MsLgsPgVjnp97HUJeovNj3jp4XgyQ3nuiWMwiS8",
+        "program": "SanctumSpl",
+        "validator_list": "HJTGs6mPX7nE84kU1s4c5VRwNbtUxGgUj8qTbzakSXAH",
+        "vote_account": "CiTYUYPAPHdcri5yEfsmqVcs54J6j8X1QaiFLgYqMVe"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://raw.githubusercontent.com/bartenbach/pumpkins_pool/main/assets/img/pumpkintoken.png",
+      "mint": "pumpkinsEq8xENVZE6QgTS93EN4r9iKvNxNALS1ooyp",
+      "name": "Pumpkin's Staked SOL",
+      "symbol": "pumpkinSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "8WHCJsUduwDBhPL9uVADQSdWkUi2LPZNFAMyX1n2HGMD",
+        "program": "SanctumSpl",
+        "validator_list": "5wQr2KeodHLNikQgNQTeEEoFZuNgvP2oD9c4izDf2TuQ",
+        "vote_account": "DsiG71AvUHUEo9rMMHqM9NAWQ6ptguRAHyot6wGzLJjx"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://raw.githubusercontent.com/igneous-labs/lst-offchain-metadata/master/hSOL/hSOL.png",
+      "mint": "he1iusmfkpAdwvxLNGV8Y1iSbj4rUy6yMhEA3fotn9A",
+      "name": "Helius Staked SOL",
+      "symbol": "hSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "3wK2g8ZdzAH8FJ7PKr2RcvGh7V9VYson5hrVsJM5Lmws",
+        "program": "SanctumSpl",
+        "validator_list": "TCxWHorDSe3vWydw6MGwyexcqm3ZU9RT7VTqiCcN6y9",
+        "vote_account": "he1iusunGwqrNtafDtLdhsUQDFvo13z9sUa36PauBtk"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://cogent-cogs.s3.us-west-2.amazonaws.com/cgntSOL.png",
+      "mint": "CgnTSoL3DgY9SFHxcLj6CgCgKKoTBr6tp4CPAEWy25DE",
+      "name": "Cogent SOL",
+      "symbol": "cgntSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "CgntPoLka5pD5fesJYhGmUCF8KU1QS1ZmZiuAuMZr2az",
+        "program": "Spl",
+        "validator_list": "CGNTvFQ5yhxp2H5RmmXJ2w3LXJ3kAHrgPMrfABBTkeTr",
+        "vote_account": "CogentC52e7kktFfWHwsqSmr8LiS1yAtfqhHcftCPcBJ"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://shdw-drive.genesysgo.net/4DUkKJB966oMk8zq57KkAUxqg9HpuWtZ3BKobhmYph39/laineSOL.webp",
+      "mint": "LAinEtNLgpmCP9Rvsf5Hn8W6EhNiKLZQti1xfWMLy6X",
+      "name": "Laine Stake Token",
+      "symbol": "laineSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "2qyEeSAWKfU18AFthrF7JA8z8ZCi1yt76Tqs917vwQTV",
+        "program": "Spl",
+        "validator_list": "sHPN95ARJpwN3Yipc22Z3m5118K3czRLBG7WmLDLsMp",
+        "vote_account": "GE6atKoWiQ2pt3zL7N13pjNHjdLVys8LinG8qeJLcAiL"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://cloudflare-ipfs.com/ipfs/bafkreig55mf3lazzbgndiqyqvdmchdsykvvebww7cqlws6ywgog5xfdzta",
+      "mint": "vSoLxydx6akxyMD9XEcPvGYNGq6Nn66oqVb3UkGkei7",
+      "name": "The Vault",
+      "symbol": "vSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "Fu9BYC6tWBo1KMKaP3CFoKfRhqv9akmy3DuYwnCyWiyC",
+        "program": "Spl",
+        "validator_list": "3wsE11pAjCE3sCwokhD5kgi5cjv6hi3DGAkxXB5MMHKL"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1/logo.png",
+      "mint": "bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1",
+      "name": "BlazeStake Staked SOL",
+      "symbol": "bSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "stk9ApL5HeVAwPLr3TLhDXdZS8ptVu7zp6ov8HFDuMi",
+        "program": "Spl",
+        "validator_list": "1istpXjy8BM7Vd5vPfA485frrV7SRJhgq5vs3sskWmc"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/GEJpt3Wjmr628FqXxTgxMce1pLntcPV4uFi8ksxMyPQh/logo.png",
+      "mint": "GEJpt3Wjmr628FqXxTgxMce1pLntcPV4uFi8ksxMyPQh",
+      "name": "daoSOL",
+      "symbol": "daoSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "7ge2xKsZXmqPxa3YmXxXmzCp9Hc2ezrTxh6PECaxCwrL",
+        "program": "Spl",
+        "validator_list": "CKG4Jci9tGSrZtetnLXuDKV2WqaknFCUX9CY3ahfw2n6"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://storage.googleapis.com/token-metadata/JitoSOL-256.png",
+      "mint": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn",
+      "name": "Jito Staked SOL",
+      "symbol": "JitoSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "Jito4APyf642JPZPx3hGc6WWJ8zPKtRbRs4P815Awbb",
+        "program": "Spl",
+        "validator_list": "3R3nGZpQs2aZo5FDQvd2MUQ6R7KhAPainds6uT6uE2mn"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/7Q2afV64in6N6SeZsAAB81TJzwDoD6zpqmHkzi9Dcavn/logo.svg",
+      "mint": "7Q2afV64in6N6SeZsAAB81TJzwDoD6zpqmHkzi9Dcavn",
+      "name": "JPOOL Solana Token",
+      "symbol": "JSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "CtMyWsrUtAwXWiGr9WjHT5fC3p3fgV8cyGpLTo2LJzG1",
+        "program": "Spl",
+        "validator_list": "Ei2LhH2tDKPERnoNjQV5darTToZmbg45vDvftFFLNNWd"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://storage.googleapis.com/static-marginfi/lst.png",
+      "mint": "LSTxxxnJzKDFSLr4dUkPcmCf5VyryEqzPLz5j4bpxFp",
+      "name": "Liquid Staking Token",
+      "symbol": "LST",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "DqhH94PjkZsjAqEze2BEkWhFQJ6EyU6MdtMphMgnXqeK",
+        "program": "Spl",
+        "validator_list": "77Nc7i2Pe4ktkPVsk2KsZeLZRMUMKpddheBUgW727XR4"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://www.zippystake.org/mint.png",
+      "mint": "Zippybh3S5xYYam2nvL6hVJKz1got6ShgV4DyD1XQYF",
+      "name": "Zippy Staked SOL",
+      "symbol": "zippySOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "DxRFpqBQBC2nKcvh14gD1eizCj9Xi7ruMR3nCR3Hvw8f",
+        "program": "Spl",
+        "validator_list": "FrBwWukdviJHrJqfbxkrb1GzV9XdY5qVwXxN53cHvC8y"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://srv.edgevana.com/img/edgesol.png",
+      "mint": "edge86g9cVz87xcpKpy3J77vbp4wYd9idEV562CCntt",
+      "name": "Edgevana Staked SOL",
+      "symbol": "edgeSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "edgejNWAqkePLpi5sHRxT9vHi7u3kSHP9cocABPKiWZ",
+        "program": "Spl",
+        "validator_list": "edgeUAwci9fD66ffrfxKZtznzrm79hHcpjR1BaYF8ML"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://srnhpxb74glblifrf53e2dcgserxvjeznibzbbvkesg4wqlu7xmq.arweave.net/lFp33D_hlhWgsS92TQxGkSN6pJlqA5CGqiSNy0F0_dk",
+      "mint": "ThUGsoLWtoTCfb24AmQTKDVjTTUBbNrUrozupJeyPsy",
+      "name": "Thugbirdz Staked SOL",
+      "symbol": "thugSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "G9WdMBxWSo1X3fKxbuyGrv1nGXrVqGg5zBKAkBFkb37g",
+        "program": "SanctumSpl",
+        "validator_list": "2iqLLYWs1GXxDqwdihDGVXdx411FhzfdHtg9jNqAwogf",
+        "vote_account": "H7fXvnLCKtZqJBTipxeseabGfAZUdHJ9XuP6hCKrbvUb"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://hqwsxqydipojktnc77mn3dscmpthicc7nrvom5sgif7toqrtxm2a.arweave.net/PC0rwwND3JVNov_Y3Y5CY-Z0CF9sauZ2RkF_N0IzuzQ",
+      "mint": "WensoLXxZJnev2YvihHFchn1dVVFnFLYvgomXWvvwRu",
+      "name": "Wen Staked SOL",
+      "symbol": "wenSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "CWM1VcNPd2A5WF2x2mmEUCgA1PGSKNZCGAH5GsoQw7h8",
+        "program": "SanctumSpl",
+        "validator_list": "FbGmG4xDpaTwLNtA7uBr4EBe4BUVeKK5LoYQyn2w1nBS",
+        "vote_account": "WENuuMXGi8adKogNbQj33Vxgia9oA2erkWAPF4szWN1"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://arweave.net/ifjpBZbaiieeDI7hIkVBpwNxaeaJxxYHzRpxJgsosf8",
+      "mint": "camaK1kryp4KJ2jS1HDiZuxmK7S6dyEtr9DA7NsuAAB",
+      "name": "camaoSOL",
+      "symbol": "camaoSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "2RUTyfN8iq7Hsd2s9rLgrRT9VhHLuqkx2mGNgbuzbhTc",
+        "program": "SanctumSpl",
+        "validator_list": "E13TKF5Lecza7YS1sWZJiDS4EhiQdJjp8JguC374NAF7",
+        "vote_account": "76DafWkJ6pGK2hoD41HjrM4xTBhfKqrDYDazv13n5ir1"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://tca2vwit4gdsuwo3evencavzatf6sdit6e3xpiw374fmid45q55q.arweave.net/mIGq2RPhhypZ2yVI0QK5BMvpDRPxN3ei2_8KxA-dh3s",
+      "mint": "2LuXDpkn7ZWMqufwgUv7ZisggGkSE5FpeHCHBsRgLg3m",
+      "name": "dainSOL",
+      "symbol": "dainSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "7qJ34Vq7nGZvk5YExkJsDZB6to6vz9RpcPmNEK84HjrV",
+        "program": "SanctumSpl",
+        "validator_list": "BUY9n8MMAX4rygB1scpQ2imB7gxLFyUWYKHDzZ9NibJs",
+        "vote_account": "AEtdq4CwtuktCEUWLLpRTNPBZs6tr7BBqxkHJ1DjAttR"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://arweave.net/ZyUlfKrPX9CjI2lwpnBrnaFiPV8RhU99IXvuD1PUGTE",
+      "mint": "D1gittVxgtszzY4fMwiTfM4Hp7uL5Tdi1S9LYaepAUUm",
+      "name": "digitSOL",
+      "symbol": "digitSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "4qYufFsPQETukkXd5z9fxDsdwm8AEaSqzYpuzmZzCJxR",
+        "program": "SanctumSpl",
+        "validator_list": "842feRsGyLDY12fzcHDm5VrANqsC15koSHEtWiVxCCCf",
+        "vote_account": "Simpj3KyRQmpRkXuBvCQFS7DBBG6vqw93SkZb9UD1hp"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://shdw-drive.genesysgo.net/3y9qiDjVtv8xcWsgad8zULmsqg8PLusetN55PdqtLhyr/tokenlogo.png",
+      "mint": "3bfv2scCdbvumVBc3Sar5QhYXx7Ecsi8EFF2akjxe329",
+      "name": "digitalSOL",
+      "symbol": "digitalSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "Fwy2jGmRCDjKpWTacMVvnLp66Fg4L5yhVCfahHsbjMGf",
+        "program": "SanctumSpl",
+        "validator_list": "2Visjfg7y5iMw9eiFjKipwG5dH1AsdFJu7sYpdwnWCcA",
+        "vote_account": "86Sw9R6ynPmXnHfwUWinXtq1QoF2KHesfQQyZG5r8sXo"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://arweave.net/Sd_JW2vRM79deSN_BJgLbXN_LZjru4qbnO-uG_MEsHs",
+      "mint": "DLGToUUnqy9hXxpJTm5VaiBKqnw9Zt1qzvrpwKwUmuuZ",
+      "name": "Delegate Liquid Staking SOL",
+      "symbol": "dlgtSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "9pffpv2w65TSeZpD988hAjvvzUiF1KZN1Swx5j2zPCdy",
+        "program": "SanctumSpl",
+        "validator_list": "CNQhzVtQz9jZFLEpWYwZ3sKGM8s2tH1kj1BCzcZn442Q",
+        "vote_account": "AuBB9st3RqhHBkzZgBSm6SVnHZNJQSHeBWCSkik4bzdA"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://www.dual.finance/images/token-logos/dualSOL.svg",
+      "mint": "DUAL6T9pATmQUFPYmrWq2BkkGdRxLtERySGScYmbHMER",
+      "name": "Dual SOL",
+      "symbol": "dualSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "BmEgS5XpWJJDqT3FVfB6ZmoELQrWkJxDXo3cNoJVsNFK",
+        "program": "SanctumSpl",
+        "validator_list": "DJ2V46U5yjT2P2tJW6VMYeFFMgRmaKtDDNKEiMd3wDdB",
+        "vote_account": "CNcaYdqkCwxDpKSVK8in5f6kqrTiZ5SuHsHFDqx6jNvu"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://uqdeavtqqopuojyfesy44m54bi3lxfp4gqodt2zutdpdeboilnoa.arweave.net/pAZAVnCDn0cnBSSxzjO8Cja7lfw0HDnrNJjeMgXIW1w",
+      "mint": "HausGKcq9G9zM3azwNmgZyzUvYeeqR8h8663PmZpxuDj",
+      "name": "StakeHaus Staked SOL",
+      "symbol": "hausSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "5bzgfi7nidWWrp3DCwPwLzepw7PGgawRmMH9tqqXMZRj",
+        "program": "SanctumSpl",
+        "validator_list": "CVidorJPNKbhYvCKGBqF61PtAGJ5ipThYUBYZDFSDf1J",
+        "vote_account": "HxRrsnbc6K8CdEo3LCTrSUkFaDDxv9BdJsTDzBKnUVWH"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://arweave.net/JWHmaNgsEXlHE1qJquHm5OluAX3V9CBKITwVbWbwL6M",
+      "mint": "KUMAgSzADhUmwXwNiUbNHYnMBnd89u4t9obZThJ4dqg",
+      "name": "kumaSOL",
+      "symbol": "kumaSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "Fvy5L7f3rduuYfRf9GR9fDqEgmJkYagDPh3Ddkp5jcoP",
+        "program": "SanctumSpl",
+        "validator_list": "AgSQoowD7n51jJu9QK6KV1X5f9wSVamq1T3LmUeMg5GH",
+        "vote_account": "4m1PbxzwLdUnEwog3T9UKxgjktgriHgE1CfAhMqDw7Xx"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://arweave.net/b0JcLRjgOigociJMInQzY9eVsFTwzV0OUdbpJ_LZ9xo",
+      "mint": "MLLWfi8yLTzsjzKeHN3881qWM1eDM1kTfC59aD4tiP2",
+      "name": "mallowSOL",
+      "symbol": "mallowSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "9dP2MvpoFuVgW31NbwyRJzybcjH2gMZS5YkSWEC7NDhD",
+        "program": "SanctumSpl",
+        "validator_list": "6XMx6CgC41LCKh2ZzkhhdNKq5EFufNkyYQ9QrV8soBeF",
+        "vote_account": "he1iusunGwqrNtafDtLdhsUQDFvo13z9sUa36PauBtk"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://arweave.net/K151E1-jIi9nT5Vaf02ibUP7_XnO_GWuFi63-VYvwRI",
+      "mint": "nordEhq2BnR6weCyrdezNVk7TwC3Ej94znPZxdBnfLM",
+      "name": "Nordic Staked SOL",
+      "symbol": "nordSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "GrrASJmjz19gHDsUUGv9y3gtRAwYJcdrtFESCRAosd44",
+        "program": "SanctumSpl",
+        "validator_list": "HfBndgMnK9otLp7ypMS3nf5qjWVbhNegd1zPVDm84okd",
+        "vote_account": "B1w6SZcyvjyp6zEyStcc8u9AxXAh2AbYvNzMmP9rRKE9"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://arweave.net/UrbDD_0SPYXHAMD7-0pzErroi62ZHbub1VkBokrhvqM",
+      "mint": "PoLaRbHgtHnmeSohWQN83LkwA4xnQt91VUqL5hx5VTc",
+      "name": "polarSOL",
+      "symbol": "polarSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "EYwMHf8Ajnpvy3PqMMkq1MPkTyhCsBEesXFgnK9BZfmu",
+        "program": "SanctumSpl",
+        "validator_list": "EomwHLMfpzFLTxBzQbrf23e4TKhQgHgceHdFPDwaHhpo",
+        "vote_account": "CQr9DJLMeYqmXcfG8Z8cgSFw7ntXvVUamBM3dMVzWiJz"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://arweave.net/kgakRdwSkJHvxHlLwq1sSDQF0DIqzFXNvRcml9jdznE",
+      "mint": "EPCz5LK372vmvCkZH3HgSuGNKACJJwwxsofW6fypCPZL",
+      "name": "StaRKe SOL",
+      "symbol": "rkSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "6LXCxeyQZqdAL4yLCtgATFYF6dcayWvsiwjtBFYVfb1N",
+        "program": "SanctumSpl",
+        "validator_list": "CYHKq8v8wPxWGTe6EM84Jpkiw54S3b9tpTA7Vh11LfNe",
+        "vote_account": "D3QPJm7BDzzPeRG51YZSEz3LfV7GvFNu9NkcibzURxuj"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://arweave.net/19iWtDeflweeEJCYPtuf7EpZ3oJs9mkxvxpejy3WHew",
+      "mint": "RSoLp7kddnNwvvvaz4b1isQy8vcqdSwXjgm1wXaMhD8",
+      "name": "reflectSOL",
+      "symbol": "rSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "4gT1GaFtJK5pnX3CnjnSYwy8VUV9UdmozoQV9GCNk9RQ",
+        "program": "SanctumSpl",
+        "validator_list": "GgZb2DV3CkN6fu1oeJJL3gpfsUTn4yS7ptqWoJhn5VN1",
+        "vote_account": "rFLcT89WTT6kJsKmrMzpz5FUZHy7Z9bycBF1Q1SMy6i"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://storage.googleapis.com/hedgehog-images/BlueHeadLogo.png",
+      "mint": "spkyB5SzVaz2x3nNzSBuhpLSEF8otbRDbufc73fuLXg",
+      "name": "Hedgehog Spiky SOL",
+      "symbol": "spikySOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "GEGRQNw17Y5s44dRH69sk8bvhyj3i6VwgqGmN1MBHKHp",
+        "program": "SanctumSpl",
+        "validator_list": "34KzBwDeUGfgKrsYgcU3NvtGYqECXdPrQuKT4q7wUqiM",
+        "vote_account": "3dXXxEaV4fZqw1PL7VezfDkiJV5W4WTtRjh2EHgKSthF"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://arweave.net/G47rsX4E-c8K52zGpqXgRtH9fQLoxkoAbNiT90HpN3k",
+      "mint": "stkrHcjQGytQggswj3tCF77yriaJYYhrRxisRqe9AiZ",
+      "name": "STAKR.space SOL",
+      "symbol": "stakrSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "9j2mFdABTCCnWnzLtpMjp86AEcm4e3XistVeuujds7Au",
+        "program": "SanctumSpl",
+        "validator_list": "CyHSFkjezzAEDgFWcFAp8ZjVP8m2ocDi9Gntw8Ko16T1",
+        "vote_account": "3a2onvgTpGynakAQwx6gigtSeL7itZewNxqb5JiAvWeA"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://shdw-drive.genesysgo.net/FfXMHMFwXLHkGZDVCgBzFFAP7eT7Jd23SzAXcUXsH8j4/xSOL.svg",
+      "mint": "B5GgNAZQDN8vPrQ15jPrXmJxVtManHLqHogj9B9i4zSs",
+      "name": "ElagabalX Staked SOL",
+      "symbol": "xSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "DYuSikgwzHidFo2b8jqrViW1psAb7hpawJnszBothRzp",
+        "program": "SanctumSpl",
+        "validator_list": "ABGjoe5jYWbmY3jMp9ZcWkryPQuJC6dDLMsSo5Z9UUEa",
+        "vote_account": "8gJCfKzr55gM6DtAaFqoWjBGAmsJ71mpHem6qJAASBU4"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://fusesol.nyc3.cdn.digitaloceanspaces.com/fuseSOL.png",
+      "mint": "fuseYvhNJbSzdDByyTCrLcogsoNwAviB1WeewhbqgFc",
+      "name": "Fuse Staked SOL",
+      "symbol": "fuseSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "pool": "pjwKqvtt4ij6VJW4HxNxSaufSrkWHRc6iCTHoC4gFs4",
+        "program": "SanctumSpl",
+        "validator_list": "EQy3HcYA8MVzgQVTFWxdwP63GkmA77VCMeDH1S5KVLu3",
+        "vote_account": "SQDSVTDfE5HqL7D6RjZk1vvZhaheWoskrDdDHCki68w"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png",
+      "mint": "So11111111111111111111111111111111111111112",
+      "name": "SOL",
+      "symbol": "SOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "program": "ReservePool"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://cloudflare-ipfs.com/ipfs/bafkreiflz2xxkfn33qjch2wj55bvbn33q3s4mmb6bye5pt3mpgy4t2wg4e",
+      "mint": "5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm",
+      "name": "Infinity",
+      "symbol": "INF",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "program": "SPool",
+        "program_id": "5ocnV1qiCgaQR8Jb8xWnVbApfaygJ8tNoZfgPwsgx9kx"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/7dHbWXmci3dT8UFYWYZweBLXgycu7Y3iL6trKn1Y7ARj/logo.png",
+      "mint": "7dHbWXmci3dT8UFYWYZweBLXgycu7Y3iL6trKn1Y7ARj",
+      "name": "Lido Staked SOL",
+      "symbol": "stSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "program": "Lido"
+      }
+    },
+    {
+      "decimals": 9,
+      "logo_uri": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So/logo.png",
+      "mint": "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So",
+      "name": "Marinade staked SOL",
+      "symbol": "mSOL",
+      "token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "pool": {
+        "program": "Marinade"
+      }
+    }
+  ]
+}
