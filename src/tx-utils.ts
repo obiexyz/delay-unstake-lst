@@ -17,24 +17,6 @@ console.log(solanaStakePool);
 const { Connection, Transaction, Keypair, SystemProgram, PublicKey, LAMPORTS_PER_SOL, sendAndConfirmRawTransaction, TransactionInstruction } = solanaWeb3;
 const { getStakePoolAccount, updateStakePool, depositSol, depositStake, withdrawSol, withdrawStake, stakePoolInfo, findStakePoolFromTokenMint } = solanaStakePool;
 
-export const withdrawStakeFunc = async (connection, stakePool, wallet, amount) => {  
-    console.log("withdrawStakeFunc:", connection, stakePool, wallet, amount);
-
-    let transaction = await withdrawStake(connection, stakePool, wallet, amount, false);
-    console.log("withdrawStakeFunc transaction:", transaction);
-
-    // Sign transaction
-    transaction.feePayer = wallet;
-    let signedTransaction = await wallet.signTransaction(transaction);
-    console.log("withdrawStakeFunc signedTransaction:", signedTransaction);
-
-    // Send and confirm transaction
-    let txid = await sendAndConfirmRawTransaction(connection, signedTransaction);
-    console.log("withdrawStakeFunc txid:", txid);
-
-    return txid;
-}
-
 export function findStakePool(tokenAddress, data) {
     // Find the token in the data array
     const token = data.sanctum_lst_list.find(item => item.mint === tokenAddress);
@@ -48,4 +30,4 @@ export function findStakePool(tokenAddress, data) {
     return null;
 }
 
-// https://stake-docs.solblaze.org/developers/typescript-sdk
+// https://docs.solanalabs.com/cli/examples/delegate-stake#create-a-stake-account

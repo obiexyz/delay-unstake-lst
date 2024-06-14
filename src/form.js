@@ -2,8 +2,9 @@ import React, { FC, useState, useEffect } from 'react';
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { Connection, PublicKey, LAMPORTS_PER_SOL, AccountInfo, Transaction, SendTransactionOptions, TransactionSignature } from '@solana/web3.js';
 import { useFetchTokens } from './fetchTokens.js';
-import { withdrawStakeFunc, findStakePool } from './unstakeSmartContract.ts';
+import { withdrawStakeFunc } from './request.ts';
 import data from './sanctum-lst-list.json';
+import { findStakePool } from './tx-utils.ts';
 
 console.log('Sanctum LST List:', data);
 
@@ -64,7 +65,7 @@ const InputForm = () => {
         let stakePool = new PublicKey(stakePoolAddress);
         console.log('Stake Pool:', stakePool);
         //Call the function itself to delay unstake LST
-        let withdrawTx = await withdrawStakeFunc(connection, stakePool, wallet, amount, false);
+        let withdrawTx = await withdrawStakeFunc(connection, stakePool, publicKey, amount);
         console.log('Unstake Transaction:', withdrawTx);
     };
     
