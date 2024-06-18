@@ -1,47 +1,43 @@
 import data from './sanctum-lst-list.json';
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
-import { Connection, LAMPORTS_PER_SOL, PublicKey, Transaction, sendAndConfirmTransaction, Keypair, SystemProgram, StakeProgram } from '@solana/web3.js';
-import * as SinglePoolProgram from'@solana/spl-single-pool';
+import { Connection, LAMPORTS_PER_SOL, PublicKey, Transaction, sendAndConfirmTransaction, Keypair, SystemProgram, StakeProgram, TransactionInstruction } from '@solana/web3.js';
 
-// https://spl.solana.com/single-pool#using-a-single-validator-pool
+import {withdrawStakeInstruction, withdrawTransaction} from '@solana/spl-single-pool';
 
-export const withdrawStakeFunc = async (connection, stakePool, wallet, amount) => {  
+export const withdrawStakeFunc = async (connection, stakePool, wallet, amount, sendTransaction) => {  
     // Generate a new random keypair
     const keypair = Keypair.generate();
 
     console.log('Public key:', keypair.publicKey.toString());
     console.log('Secret key:', keypair.secretKey.toString());
-
+    let walletString = wallet.toBase58();
     console.log("withdrawStakeFunc:", 
         "connection:", connection, 
         "Stake Pool:", stakePool, 
-        "Wallet:", wallet, 
+        "UserStakeAccount:", keypair.publicKey,
+        "Wallet:", walletString, 
         "Amount:", amount);
 
-    const transaction = await SinglePoolProgram.withdrawTransaction({
-    rpc: connection,
-    pool: stakePool,
-    userWallet: wallet,
-    userStakeAccount: keypair.publicKey,
-    tokenAmount: amount,
-    createStakeAccount: true,
+    // Ensure wallet is a string
+    if (typeof walletString !== 'string') {
+        console.error('Wallet must be a string');
+        return;
+    }
+
+    
+    const instruction = await withdrawStakeInstruction({
+        // rpc: connection,
+        pool: stakePool,
+        userStakeAccount: keypair.publicKey.toBase58(),
+        userStakeAuthority: walletString,
+        userTokenAccount: 'jupSoLaHXQiZZTSfEWMTRRgpnyFm8f6sZdosWBjx93v',
+        tokenAmount: amount,
+        // createStakeAccount: true,
     });
+    
+    const transaction = new Transaction();
+    transaction.add(new TransactionInstruction(instruction));
 
-    // sign the transaction
-    // transaction.partialSign(keypair);
-
-    // convert the wallet from a public key to a keypair
-    // assuming the wallet is a string of the private key
-    // const walletKeypair = Keypair.fromSecretKey(new Uint8Array(wallet.split(',').map(Number)));
-
-    // sign the transaction with the wallet keypair
-    // transaction.sign(walletKeypair);
-
-    // send the transaction and get the transaction id
-    // const txid = await connection.sendAndConfirmTransaction(transaction);
-
-    // console.log('Transaction sent:', txid);
-
-
-// sign with fee payer, and the stake account keypair if a new account is being created
+    const signature = await connection.sendTransaction(transaction, [wallet]);
+    console.log('Transaction signature:', signature);
 }

@@ -10,7 +10,7 @@ console.log('Sanctum LST List:', data);
 
 const InputForm = () => {
     const fetchTokens = useFetchTokens();
-    const {wallet, publicKey, connect, connected } = useWallet();    
+    const {wallet, publicKey, connect, connected, sendTransaction } = useWallet();    
     const [walletAddress, setWalletAddress] = useState('');
     const [tokens, setTokens] = useState([]);
     const [selectedToken, setSelectedToken] = useState([]);
@@ -65,7 +65,7 @@ const InputForm = () => {
         let stakePool = new PublicKey(stakePoolAddress);
         console.log('Stake Pool:', stakePool);
         //Call the function itself to delay unstake LST
-        let withdrawTx = await withdrawStakeFunc(connection, stakePool, publicKey, amount);
+        let withdrawTx = await withdrawStakeFunc(connection, stakePool, publicKey, amount, sendTransaction);
         console.log('Unstake Transaction:', withdrawTx);
     };
     
