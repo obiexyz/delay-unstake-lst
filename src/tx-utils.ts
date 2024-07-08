@@ -17,9 +17,9 @@ console.log(solanaStakePool);
 const { Connection, Transaction, Keypair, SystemProgram, PublicKey, LAMPORTS_PER_SOL, sendAndConfirmRawTransaction, TransactionInstruction } = solanaWeb3;
 const { getStakePoolAccount, updateStakePool, depositSol, depositStake, withdrawSol, withdrawStake, stakePoolInfo, findStakePoolFromTokenMint } = solanaStakePool;
 
-export function findStakePool(tokenAddress, data) {
+export function findStakePool(tokenAddress: string, data: any) {
     // Find the token in the data array
-    const token = data.sanctum_lst_list.find(item => item.mint === tokenAddress);
+    const token = data.sanctum_lst_list.find((item: any) => item.mint === tokenAddress);
 
     // If the token was found and it has a pool property, return the pool address
     if (token && token.pool) {

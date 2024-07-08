@@ -10,13 +10,14 @@ console.log('Sanctum LST List:', data);
 
 const InputForm = () => {
     const fetchTokens = useFetchTokens();
-    const {wallet, publicKey, connect, connected, sendTransaction } = useWallet();    
+    const { connection } = useConnection();
+    const { wallet, publicKey, connect, connected, sendTransaction } = useWallet();    
     const [walletAddress, setWalletAddress] = useState('');
     const [tokens, setTokens] = useState([]);
-    const [selectedToken, setSelectedToken] = useState([]);
+    const [selectedToken, setSelectedToken] = useState('');
     const [amount, setAmount] = useState(0);
     const [lstArray, setLstArray] = useState(data.sanctum_lst_list);
-
+    const [selectedTokenBalance, setSelectedTokenBalance] = useState(0);
 
     console.log('Pre-UseEffect- Wallet:', wallet);
     console.log('Pre-UseEffect- Connection:', connected);
@@ -50,7 +51,6 @@ const InputForm = () => {
                 setTokens(tokens);
                 console.log('useEffect- Tokens:', tokens);
                 if (tokens.length > 0) {
-                    setSelectedToken(tokens[0]); // Set the whole token object
                     setSelectedToken(tokens[0].id);
                     setSelectedTokenBalance(tokens[0].balance);
                 }
@@ -59,17 +59,27 @@ const InputForm = () => {
     }, [wallet, connected, walletAddress]);
 
     const handleUnstake = async () => {
+        if (!publicKey || !selectedToken) {
+            console.log('Wallet not connected or no token selected');
+            return;
+        }
+        
         console.log(`Unstaking ${amount} of ${selectedToken}`);
-        let connection = new Connection(process.env.REACT_APP_IRONFORGE_ENDPOINT);
-        let stakePoolAddress = await findStakePool(selectedToken, data); // Use the result of findStakePool as stakePoolInput
-        let stakePool = new PublicKey(stakePoolAddress);
-        console.log('Stake Pool:', stakePool);
-        //Call the function itself to delay unstake LST
-        let withdrawTx = await withdrawStakeFunc(connection, stakePool, publicKey, amount, sendTransaction);
-        console.log('Unstake Transaction:', withdrawTx);
+        const amountLamports = amount * LAMPORTS_PER_SOL; // Convert SOL to lamports
+
+        try {
+            const signature = await withdrawStakeFunc(
+                connection,
+                selectedToken, // This is now the token address, not the stake pool address
+                publicKey,
+                amountLamports,
+                sendTransaction
+            );
+            console.log('Unstake Transaction:', signature);
+        } catch (error) {
+            console.error('Error unstaking:', error);
+        }
     };
-    
-    const [selectedTokenBalance, setSelectedTokenBalance] = useState(0);
 
     useEffect(() => {
         const selectedTokenData = tokens.find(token => token.id === selectedToken);
@@ -85,18 +95,16 @@ const InputForm = () => {
                 <>
                     <select 
                         onChange={(e) => {
-                            // Assuming `wallet` is your wallet object
                             if (wallet && wallet.connected) {
-                            const selectedTokenAddress = e.target.value;
-                            const selectedToken = tokens.find(token => token.address === selectedTokenAddress);
-                            setSelectedToken(selectedToken);
+                                const selectedTokenId = e.target.value;
+                                setSelectedToken(selectedTokenId);
                             }
                         }}
+                        value={selectedToken}
                     >
                         {tokens.map((token, index) => (
-                            <option key={index} value={token.address}>
+                            <option key={index} value={token.id}>
                                 {`${token.symbol} (${token.balance.toFixed(2)})`}
-                                <img src={token.icon} alt={token.symbol} />
                             </option>
                         ))}
                     </select>
@@ -107,7 +115,7 @@ const InputForm = () => {
                         onChange={(e) => {
                             const val = e.target.value;
                             if (!isNaN(val) && !isNaN(parseFloat(val))) {
-                                setAmount(val);
+                                setAmount(parseFloat(val));
                             }
                         }} 
                     />
@@ -118,7 +126,6 @@ const InputForm = () => {
             )}
         </div>
     );
-
 };
 
 export default InputForm;
