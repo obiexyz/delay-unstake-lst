@@ -1,90 +1,60 @@
 import { useWallet } from '@solana/wallet-adapter-react';
-import { useState, useEffect } from 'react';
-
-const MAX_RETRIES = 5;
-const INITIAL_BACKOFF = 1000; // 1 second
-const MAX_BACKOFF = 32000; // 32 seconds
-
-const fetchWithRetry = async (url, options, retries = 0) => {
-  try {
-    const response = await fetch(url, options);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return await response.json();
-  } catch (error) {
-    if (retries >= MAX_RETRIES) {
-      throw error;
-    }
-    const backoff = Math.min(INITIAL_BACKOFF * Math.pow(2, retries), MAX_BACKOFF);
-    await new Promise(resolve => setTimeout(resolve, backoff));
-    return fetchWithRetry(url, options, retries + 1);
-  }
-};
+const web3 = require("@solana/web3.js");
 
 export const useFetchTokens = () => {
-  const { publicKey } = useWallet();
-  const [tokens, setTokens] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+    const { publicKey } = useWallet();
+    const url  = process.env.REACT_APP_IRONFORGE_ENDPOINT;
 
-  const fetchTokens = async () => {
-    if (!publicKey) {
-      setError('No wallet connected');
-      return;
-    }
+    const fetchTokens = async () => {
+        if (!publicKey) {
+            console.log('No wallet is connected');
+            return;
+        }
 
-    setIsLoading(true);
-    setError(null);
+        const ownerAddress = publicKey.toString();
+        console.log("useFetchTokens- walletAddress: ", ownerAddress);
 
-    const url = process.env.REACT_APP_IRONFORGE_ENDPOINT;
-    const ownerAddress = publicKey.toString();
+        const getAssetsByOwner = async () => {
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${process.env.REACT_APP_helius_API_key}`,
+                    },
+                    body: JSON.stringify({
+                        jsonrpc: '2.0',
+                        id: '323',
+                        method: 'searchAssets',
+                        params: {
+                            ownerAddress: ownerAddress,
+                            tokenType: "fungible",
+                            page: 1, // Starts at 1
+                            limit: 1000,
+                        },
+                    }),
+                });
 
-    try {
-      const result = await fetchWithRetry(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.REACT_APP_helius_API_key}`,
-        },
-        body: JSON.stringify({
-          jsonrpc: '2.0',
-          id: '323',
-          method: 'searchAssets',
-          params: {
-            ownerAddress: ownerAddress,
-            tokenType: "fungible",
-            page: 1,
-            limit: 1000,
-          },
-        }),
-      });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
 
-      if (result.error) {
-        throw new Error(JSON.stringify(result.error));
-      }
+                const result = await response.json();
+                console.log("fetchTokens.js HeliusAPI- Response: ", result);
 
-      const fetchedTokens = result.result.items.map(item => ({
-        id: item.id,
-        symbol: item.content.metadata.symbol,
-        balance: parseFloat(item.token_info.balance) / Math.pow(10, item.token_info.decimals),
-        decimals: item.token_info.decimals
-      }));
+                if (result.error) {
+                    throw new Error(JSON.stringify(result.error));
+                }
 
-      setTokens(fetchedTokens);
-    } catch (error) {
-      console.error('Error fetching tokens:', error);
-      setError('Failed to fetch token data. Please try again later.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+                return result;
+            } catch (error) {
+                console.error("Error fetching assets:", error);
+                throw error;
+            }
+        };
 
-  useEffect(() => {
-    if (publicKey) {
-      fetchTokens();
-    }
-  }, [publicKey]);
+        return getAssetsByOwner();
+    };
 
-  return { tokens, isLoading, error, refetch: fetchTokens };
+    return fetchTokens;
 };

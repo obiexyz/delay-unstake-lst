@@ -1,76 +1,104 @@
-import React, { useState, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
-import { LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { Connection, PublicKey, LAMPORTS_PER_SOL, AccountInfo, Transaction, SendTransactionOptions, TransactionSignature } from '@solana/web3.js';
 import { useFetchTokens } from './fetchTokens.js';
 import { withdrawStakeFunc } from './request.ts';
 import data from './sanctum-lst-list.json';
+import { findStakePool } from './tx-utils.ts';
+
+console.log('Sanctum LST List:', data);
 
 const InputForm = () => {
-    const { tokens, isLoading, error, refetch } = useFetchTokens();
-    const { connection } = useConnection();
-    const { publicKey, sendTransaction } = useWallet();
+    const fetchTokens = useFetchTokens();
+    const {wallet, publicKey, connect, connected, sendTransaction } = useWallet();    
+    const [walletAddress, setWalletAddress] = useState('');
+    const [tokens, setTokens] = useState([]);
     const [selectedToken, setSelectedToken] = useState('');
     const [amount, setAmount] = useState(0);
-    const [lstArray] = useState(data.sanctum_lst_list);
+    const [lstArray, setLstArray] = useState(data.sanctum_lst_list);
     const [selectedTokenBalance, setSelectedTokenBalance] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    console.log('Pre-UseEffect- Wallet:', wallet);
+    console.log('Pre-UseEffect- Connection:', connected);
+    console.log("Pre-UseEffect- RPC Node:", process.env.REACT_APP_IRONFORGE_ENDPOINT);
+    console.log("Pre-UseEffect- Public Key (useWallet):", publicKey);
 
     useEffect(() => {
-        if (publicKey) {
-            console.log('Wallet connected:', publicKey.toBase58());
-            console.log('Using RPC endpoint:', connection.rpcEndpoint);
+        console.log('useEffect- running, wallet, connected, or walletAddress changed.');
+        if (wallet && connected) {
+            console.log('useEffect- Wallet Adapter Output:', wallet.adapter.wallet.accounts[0].address);
+            console.log('useEffect- Wallet public key:', publicKey);
+     
+            setIsLoading(true);
+            setError(null);
+
+            // Fetch the token balances
+            fetchTokens().then((fetchedTokens) => {
+                console.log('useEffect- fetchTokenHeliusAPI:', fetchedTokens);
+    
+                if (fetchedTokens && fetchedTokens.result && Array.isArray(fetchedTokens.result.items)) {
+                    // Map the fetched tokens to the LST list
+                    const tokens = lstArray.map(lst => {
+                        const fetchedToken = fetchedTokens.result.items.find(item => item.id === lst.mint);
+                        return {
+                            symbol: lst.symbol,
+                            balance: fetchedToken && fetchedToken.token_info ? parseFloat(fetchedToken.token_info.balance) / Math.pow(10, fetchedToken.token_info.decimals) : 0,
+                            icon: lst.logo_uri,
+                            id: lst.mint
+                        };
+                    });
+    
+                    // Sort the tokens by balance
+                    tokens.sort((a, b) => b.balance - a.balance);
+    
+                    setTokens(tokens);
+                    console.log('useEffect- Tokens:', tokens);
+                    if (tokens.length > 0) {
+                        setSelectedToken(tokens[0].id);
+                        setSelectedTokenBalance(tokens[0].balance);
+                    }
+                } else {
+                    console.error('Unexpected structure in fetchedTokens:', fetchedTokens);
+                    setError('Failed to fetch token data. Please try again later.');
+                }
+            }).catch((error) => {
+                console.error('Error fetching tokens:', error);
+                setError('Failed to fetch token data. Please try again later.');
+            }).finally(() => {
+                setIsLoading(false);
+            });
         }
-    }, [publicKey, connection]);
-
-    useEffect(() => {
-        if (tokens.length > 0) {
-            const filteredTokens = lstArray.map(lst => {
-                const fetchedToken = tokens.find(token => token.id === lst.mint);
-                return {
-                    symbol: lst.symbol,
-                    balance: fetchedToken ? fetchedToken.balance : 0,
-                    icon: lst.logo_uri,
-                    id: lst.mint
-                };
-            }).filter(token => token.balance > 0);
-
-            filteredTokens.sort((a, b) => b.balance - a.balance);
-
-            if (filteredTokens.length > 0) {
-                setSelectedToken(filteredTokens[0].id);
-                setSelectedTokenBalance(filteredTokens[0].balance);
-            }
-        }
-    }, [tokens, lstArray]);
+    }, [wallet, connected, walletAddress]);
 
     const handleUnstake = async () => {
         if (!publicKey || !selectedToken) {
             console.log('Wallet not connected or no token selected');
             return;
         }
-        
+
         console.log(`Unstaking ${amount} of ${selectedToken}`);
-        const amountLamports = amount * LAMPORTS_PER_SOL;
-
+        let connection = new Connection(process.env.REACT_APP_IRONFORGE_ENDPOINT);
+        let stakePoolAddress = await findStakePool(selectedToken, data);
+        let stakePool = new PublicKey(stakePoolAddress);
+        console.log('Stake Pool:', stakePool);
+        
         try {
-            const transaction = await withdrawStakeFunc(
-                connection,
-                selectedToken,
-                publicKey,
-                amountLamports
-            );
-
-            const signature = await sendTransaction(transaction, connection);
-            console.log('Unstake Transaction signature:', signature);
-
-            const confirmation = await connection.confirmTransaction(signature, 'confirmed');
-            console.log('Transaction confirmed:', confirmation);
-
-            // Refetch tokens after unstaking
-            refetch();
+            let withdrawTx = await withdrawStakeFunc(connection, stakePool, publicKey, amount, sendTransaction);
+            console.log('Unstake Transaction:', withdrawTx);
         } catch (error) {
             console.error('Error unstaking:', error);
+            setError('Failed to unstake. Please try again later.');
         }
     };
+
+    useEffect(() => {
+        const selectedTokenData = tokens.find(token => token.id === selectedToken);
+        if (selectedTokenData) {
+            setSelectedTokenBalance(selectedTokenData.balance);
+        }
+    }, [selectedToken, tokens]);
 
     if (isLoading) {
         return <div>Loading tokens...</div>;
@@ -80,14 +108,10 @@ const InputForm = () => {
         return <div>Error: {error}</div>;
     }
 
-    const filteredTokens = lstArray.filter(lst => 
-        tokens.some(token => token.id === lst.mint && token.balance > 0)
-    );
-
     return (
         <div>
             <h1>Unstake</h1>
-            {publicKey ? (
+            {connected ? (
                 <>
                     <select 
                         onChange={(e) => {
@@ -100,20 +124,22 @@ const InputForm = () => {
                         }}
                         value={selectedToken}
                     >
-                        {filteredTokens.map((token, index) => {
-                            const fetchedToken = tokens.find(t => t.id === token.mint);
-                            return (
-                                <option key={index} value={token.mint}>
-                                    {`${token.symbol} (${fetchedToken ? fetchedToken.balance.toFixed(4) : '0'})`}
-                                </option>
-                            );
-                        })}
+                        {tokens.map((token, index) => (
+                            <option key={index} value={token.id}>
+                                {`${token.symbol} (${token.balance.toFixed(4)})`}
+                            </option>
+                        ))}
                     </select>
                     <p className="clickable" onClick={() => setAmount(selectedTokenBalance)}>Max: {selectedTokenBalance.toFixed(4)}</p>
                     <input 
                         type="number" 
                         value={amount} 
-                        onChange={(e) => setAmount(Number(e.target.value))} 
+                        onChange={(e) => {
+                            const val = parseFloat(e.target.value);
+                            if (!isNaN(val)) {
+                                setAmount(val);
+                            }
+                        }} 
                         step="0.0001"
                         min="0"
                         max={selectedTokenBalance}
