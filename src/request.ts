@@ -11,57 +11,41 @@ import { findStakePool } from './tx-utils.ts';
 import data from './sanctum-lst-list.json';
 import { Buffer } from 'buffer';
 
-const SANCTUM_UNSTAKE_PROGRAM_ID = new PublicKey('SP12tWFxD9oJsVWNavTTBZvMbA6gkAmxtVgxdqvyvhY');
-// Other Potential Program IDs (for testing):
-//SUnMP8esPBfyPKc2yJ5io1W7wUEWnT7AzXb2m2oVukh
-//SP12tWFxD9oJsVWNavTTBZvMbA6gkAmxtVgxdqvyvhY
-//SVSPxpvHdN29nkVg9rPapPNDddN5DipNLRUFhyjFThE
-const RENT_SYSVAR_ID = new PublicKey('SysvarRent111111111111111111111111111111111');
+const SINGLE_POOL_PROGRAM_ID = new PublicKey('SP12tWFxD9oJsVWNavTTBZvMbA6gkAmxtVgxdqvyvhY');
+const SYSVAR_STAKE_HISTORY_PUBKEY = new PublicKey('SysvarStakeHistory1111111111111111111111111');
 
 export const withdrawStakeFunc = async (
   connection: Connection,
-  tokenAddress: string,
+  poolAddress: string,
   walletPublicKey: PublicKey,
   amount: number
 ): Promise<Transaction> => {
   // Find the stake pool address for the given token
-  const stakePoolAddress = findStakePool(tokenAddress, data);
-  if (!stakePoolAddress) {
-    throw new Error('Stake pool not found for the given token');
-  }
-
-  const stakePoolPubkey = new PublicKey(stakePoolAddress);
+  const poolPubkey = new PublicKey(poolAddress);
 
   // Convert the amount to lamports (or equivalent base units)
   const amountInLamports = BigInt(Math.round(amount * LAMPORTS_PER_SOL));
-
-  // Derive the unstake account PDA
-  const [unstakeAccount] = await PublicKey.findProgramAddress(
-    [Buffer.from('unstake'), stakePoolPubkey.toBuffer(), walletPublicKey.toBuffer()],
-    SANCTUM_UNSTAKE_PROGRAM_ID
-  );
-
-  // Derive the stake account PDA
-  const [stakeAccount] = await PublicKey.findProgramAddress(
-    [Buffer.from('stake'), stakePoolPubkey.toBuffer()],
-    SANCTUM_UNSTAKE_PROGRAM_ID
-  );
 
   // Create the instruction data
   const instructionData = Buffer.alloc(9);
   instructionData.writeUInt8(0, 0); // Instruction index for Unstake
   instructionData.writeBigUInt64LE(amountInLamports, 1);
 
+  // Derive the stake account PDA
+  const [stakeAccount] = await PublicKey.findProgramAddress(
+    [Buffer.from('stake_account')],
+    SINGLE_POOL_PROGRAM_ID
+  );
+
   const unstakeIx = new TransactionInstruction({
-    programId: SANCTUM_UNSTAKE_PROGRAM_ID,
+    programId: SINGLE_POOL_PROGRAM_ID,
     keys: [
-      { pubkey: stakePoolPubkey, isSigner: false, isWritable: true },
-      { pubkey: unstakeAccount, isSigner: false, isWritable: true },
+      { pubkey: poolPubkey, isSigner: false, isWritable: true },
       { pubkey: stakeAccount, isSigner: false, isWritable: true },
       { pubkey: walletPublicKey, isSigner: true, isWritable: true },
       { pubkey: SystemProgram.programId, isSigner: false, isWritable: false },
       { pubkey: SYSVAR_CLOCK_PUBKEY, isSigner: false, isWritable: false },
-      { pubkey: RENT_SYSVAR_ID, isSigner: false, isWritable: false },
+      { pubkey: SYSVAR_STAKE_HISTORY_PUBKEY, isSigner: false, isWritable: false },
     ],
     data: instructionData
   });

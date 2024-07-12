@@ -80,12 +80,19 @@ const InputForm = () => {
         }
     
         console.log(`Unstaking ${amount} of ${selectedToken}`);
-        // let connection = new Connection(process.env.REACT_APP_IRONFORGE_ENDPOINT);
         
         try {
+            // Find the pool address for the selected token
+            const poolAddress = data.sanctum_lst_list.find(token => token.mint === selectedToken)?.pool?.pool;
+
+            if (!poolAddress) {
+                throw new Error('Pool address not found for the selected token');
+            }
+            
+
             let transaction = await withdrawStakeFunc(
                 connection,
-                selectedToken,
+                poolAddress,
                 publicKey,
                 Number(amount)
             );
@@ -97,7 +104,7 @@ const InputForm = () => {
 
         } catch (error) {
             console.error('Error unstaking:', error);
-            setError('Failed to unstake. Please try again later.');
+            setError(`Failed to unstake. Error: ${error.message}`);
         }
     };
 
