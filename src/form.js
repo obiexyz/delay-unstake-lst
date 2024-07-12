@@ -77,15 +77,18 @@ const InputForm = () => {
             console.log('Wallet not connected or no token selected');
             return;
         }
-
+    
         console.log(`Unstaking ${amount} of ${selectedToken}`);
         let connection = new Connection(process.env.REACT_APP_IRONFORGE_ENDPOINT);
-        let stakePoolAddress = await findStakePool(selectedToken, data);
-        let stakePool = new PublicKey(stakePoolAddress);
-        console.log('Stake Pool:', stakePool);
         
         try {
-            let withdrawTx = await withdrawStakeFunc(connection, stakePool, publicKey, amount, sendTransaction);
+            let withdrawTx = await withdrawStakeFunc(
+                connection,
+                selectedToken,
+                publicKey,
+                Number(amount), // Ensure amount is a number
+                sendTransaction
+            );
             console.log('Unstake Transaction:', withdrawTx);
         } catch (error) {
             console.error('Error unstaking:', error);
