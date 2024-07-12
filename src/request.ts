@@ -19,9 +19,8 @@ export const withdrawStakeFunc = async (
   connection: Connection,
   tokenAddress: string,
   walletPublicKey: PublicKey,
-  amount: number,
-  sendTransaction: (transaction: Transaction) => Promise<string>
-) => {
+  amount: number
+): Promise<Transaction> => {
   // Find the stake pool address for the given token
   const stakePoolAddress = findStakePool(tokenAddress, data);
   if (!stakePoolAddress) {
@@ -67,13 +66,10 @@ export const withdrawStakeFunc = async (
   // Create a new transaction and add the unstake instruction
   const transaction = new Transaction().add(unstakeIx);
 
-  // Send the transaction
-  try {
-    const signature = await sendTransaction(transaction);
-    console.log('Unstake transaction signature:', signature);
-    return signature;
-  } catch (error) {
-    console.error('Error sending unstake transaction:', error);
-    throw error;
-  }
+  // Get the latest blockhash
+  const { blockhash } = await connection.getLatestBlockhash();
+  transaction.recentBlockhash = blockhash;
+  transaction.feePayer = walletPublicKey;
+
+  return transaction;
 };

@@ -10,7 +10,8 @@ console.log('Sanctum LST List:', data);
 
 const InputForm = () => {
     const fetchTokens = useFetchTokens();
-    const {wallet, publicKey, connect, connected, sendTransaction } = useWallet();    
+    const {wallet, publicKey, connect, connected, sendTransaction } = useWallet();
+    const { connection } = useConnection();    
     const [walletAddress, setWalletAddress] = useState('');
     const [tokens, setTokens] = useState([]);
     const [selectedToken, setSelectedToken] = useState('');
@@ -21,7 +22,7 @@ const InputForm = () => {
     const [error, setError] = useState(null);
 
     console.log('Pre-UseEffect- Wallet:', wallet);
-    console.log('Pre-UseEffect- Connection:', connected);
+    console.log('Pre-UseEffect- Connected:', connected);
     console.log("Pre-UseEffect- RPC Node:", process.env.REACT_APP_IRONFORGE_ENDPOINT);
     console.log("Pre-UseEffect- Public Key (useWallet):", publicKey);
 
@@ -79,17 +80,21 @@ const InputForm = () => {
         }
     
         console.log(`Unstaking ${amount} of ${selectedToken}`);
-        let connection = new Connection(process.env.REACT_APP_IRONFORGE_ENDPOINT);
+        // let connection = new Connection(process.env.REACT_APP_IRONFORGE_ENDPOINT);
         
         try {
-            let withdrawTx = await withdrawStakeFunc(
+            let transaction = await withdrawStakeFunc(
                 connection,
                 selectedToken,
                 publicKey,
-                Number(amount), // Ensure amount is a number
-                sendTransaction
+                Number(amount)
             );
-            console.log('Unstake Transaction:', withdrawTx);
+            console.log('Unstake Transaction:', transaction);
+            const signature = await sendTransaction(transaction, connection);
+            console.log('Sending transaction...');
+            await connection.confirmTransaction(signature, 'processed');
+            console.log('Unstake Transaction signature:', signature);
+
         } catch (error) {
             console.error('Error unstaking:', error);
             setError('Failed to unstake. Please try again later.');
