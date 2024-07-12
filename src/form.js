@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
-import { Connection, PublicKey, LAMPORTS_PER_SOL, AccountInfo, Transaction, SendTransactionOptions, TransactionSignature } from '@solana/web3.js';
+import { Connection, PublicKey, SystemProgram, StakeProgram, LAMPORTS_PER_SOL, Keypair, AccountInfo, Transaction, SendTransactionOptions, TransactionSignature, TransactionInstruction, SYSVAR_RENT_PUBKEY} from '@solana/web3.js';
+import { TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID, getAssociatedTokenAddress } from '@solana/spl-token';
 import { useFetchTokens } from './fetchTokens.js';
 import { withdrawStakeFunc } from './request.ts';
 import data from './sanctum-lst-list.json';
@@ -82,28 +83,42 @@ const InputForm = () => {
         console.log(`Unstaking ${amount} of ${selectedToken}`);
         
         try {
-            // Find the pool address for the selected token
             const poolAddress = data.sanctum_lst_list.find(token => token.mint === selectedToken)?.pool?.pool;
-
+    
             if (!poolAddress) {
                 throw new Error('Pool address not found for the selected token');
             }
             
-
+            console.log('Pool Address:', poolAddress);
+    
+            const poolTokenMint = new PublicKey(selectedToken);
+    
             let transaction = await withdrawStakeFunc(
                 connection,
                 poolAddress,
                 publicKey,
+                poolTokenMint,
                 Number(amount)
             );
+    
             console.log('Unstake Transaction:', transaction);
+    
             const signature = await sendTransaction(transaction, connection);
             console.log('Sending transaction...');
-            await connection.confirmTransaction(signature, 'processed');
+            
+            const confirmation = await connection.confirmTransaction(signature, 'confirmed');
+            console.log('Transaction confirmation:', confirmation);
+            
+            if (confirmation.value.err) {
+                throw new Error(`Transaction failed: ${JSON.stringify(confirmation.value.err)}`);
+            }
+    
             console.log('Unstake Transaction signature:', signature);
-
         } catch (error) {
             console.error('Error unstaking:', error);
+            if (error.logs) {
+                console.error('Transaction logs:', error.logs);
+            }
             setError(`Failed to unstake. Error: ${error.message}`);
         }
     };
