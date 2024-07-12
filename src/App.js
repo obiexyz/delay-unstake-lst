@@ -12,6 +12,8 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import InputForm from './form';
 import { BalanceDisplay } from './balanceComponent.tsx';
 import './App.css';
+import { Buffer } from 'buffer';
+global.Buffer = Buffer;
 
 require('@solana/wallet-adapter-react-ui/styles.css');
 
