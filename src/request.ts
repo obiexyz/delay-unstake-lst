@@ -11,8 +11,11 @@ import { findStakePool } from './tx-utils.ts';
 import data from './sanctum-lst-list.json';
 import { Buffer } from 'buffer';
 
-// Constants from the Sanctum Unstake Program
-const SANCTUM_UNSTAKE_PROGRAM_ID = new PublicKey('SUnMP8esPBfyPKc2yJ5io1W7wUEWnT7AzXb2m2oVukh');
+const SANCTUM_UNSTAKE_PROGRAM_ID = new PublicKey('SP12tWFxD9oJsVWNavTTBZvMbA6gkAmxtVgxdqvyvhY');
+// Other Potential Program IDs (for testing):
+//SUnMP8esPBfyPKc2yJ5io1W7wUEWnT7AzXb2m2oVukh
+//SP12tWFxD9oJsVWNavTTBZvMbA6gkAmxtVgxdqvyvhY
+//SVSPxpvHdN29nkVg9rPapPNDddN5DipNLRUFhyjFThE
 const RENT_SYSVAR_ID = new PublicKey('SysvarRent111111111111111111111111111111111');
 
 export const withdrawStakeFunc = async (
