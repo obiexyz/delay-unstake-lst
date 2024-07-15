@@ -5,92 +5,89 @@ import {
   TransactionInstruction, 
   SYSVAR_CLOCK_PUBKEY,
   LAMPORTS_PER_SOL,
-  SystemProgram,
   StakeProgram,
   Keypair,
-  SYSVAR_RENT_PUBKEY
 } from '@solana/web3.js';
-import { TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID } from '@solana/spl-token';
-import { Buffer } from 'buffer';
+import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
+import * as borsh from 'borsh';
 
 const SINGLE_POOL_PROGRAM_ID = new PublicKey('SP12tWFxD9oJsVWNavTTBZvMbA6gkAmxtVgxdqvyvhY');
+
+class WithdrawStakeArgs {
+  instruction: number;
+  amount: bigint;
+
+  constructor(amount: bigint) {
+    this.instruction = 4; // WithdrawStake instruction index
+    this.amount = amount;
+  }
+
+  static schema: borsh.Schema = {
+    struct: {
+      instruction: 'u8',
+      amount: 'u64',
+    }
+  };
+}
 
 export const withdrawStakeFunc = async (
   connection: Connection,
   poolAddress: string,
   userPublicKey: PublicKey,
-  poolTokenMint: PublicKey,
+  userTokenAccount: string,
+  userStakeAccount: string,
   amount: number
 ): Promise<Transaction> => {
+  console.log('withdrawStakeFunc input parameters:', {
+    poolAddress,
+    userPublicKey: userPublicKey.toBase58(),
+    userTokenAccount,
+    userStakeAccount,
+    amount
+  });
+
   const poolPubkey = new PublicKey(poolAddress);
+  const userTokenPubkey = new PublicKey(userTokenAccount);
+  const userStakePubkey = new PublicKey(userStakeAccount);
 
   // Convert the amount to lamports
-  const amountInLamports = Math.round(amount * LAMPORTS_PER_SOL);
-
-  // Create a new stake account
-  const newStakeAccount = Keypair.generate();
-  const createStakeAccountIx = StakeProgram.createAccount({
-    fromPubkey: userPublicKey,
-    stakePubkey: newStakeAccount.publicKey,
-    authorized: {
-      staker: userPublicKey,
-      withdrawer: userPublicKey
-    },
-    lamports: await connection.getMinimumBalanceForRentExemption(StakeProgram.space),
-    lockup: {
-      epoch: 0,
-      unixTimestamp: 0,
-      custodian: PublicKey.default
-    }
-  });
-
-  // Get the associated token account for the user's pool tokens
-  const [userTokenAccount] = await PublicKey.findProgramAddress(
-    [userPublicKey.toBuffer(), TOKEN_PROGRAM_ID.toBuffer(), poolTokenMint.toBuffer()],
-    ASSOCIATED_TOKEN_PROGRAM_ID
-  );
-
-  // Create the associated token account if it doesn't exist
-  const createAtaIx = new TransactionInstruction({
-    keys: [
-      { pubkey: userPublicKey, isSigner: true, isWritable: true },
-      { pubkey: userTokenAccount, isSigner: false, isWritable: true },
-      { pubkey: userPublicKey, isSigner: false, isWritable: false },
-      { pubkey: poolTokenMint, isSigner: false, isWritable: false },
-      { pubkey: SystemProgram.programId, isSigner: false, isWritable: false },
-      { pubkey: TOKEN_PROGRAM_ID, isSigner: false, isWritable: false },
-      { pubkey: SYSVAR_RENT_PUBKEY, isSigner: false, isWritable: false },
-    ],
-    programId: ASSOCIATED_TOKEN_PROGRAM_ID,
-    data: Buffer.from([]),
-  });
+  const amountInLamports = BigInt(Math.round(amount * LAMPORTS_PER_SOL));
+  console.log('Amount in lamports:', amountInLamports.toString());
 
   // Derive necessary addresses
-  const [poolStakeAddress] = await PublicKey.findProgramAddress(
+  const [poolStakeAddress] = PublicKey.findProgramAddressSync(
     [Buffer.from('stake'), poolPubkey.toBuffer()],
     SINGLE_POOL_PROGRAM_ID
   );
+  console.log('Pool Stake Address:', poolStakeAddress.toBase58());
 
-  const [poolMintAddress] = await PublicKey.findProgramAddress(
+  const [poolMintAddress] = PublicKey.findProgramAddressSync(
     [Buffer.from('mint'), poolPubkey.toBuffer()],
     SINGLE_POOL_PROGRAM_ID
   );
+  console.log('Pool Mint Address:', poolMintAddress.toBase58());
 
-  const [poolStakeAuthority] = await PublicKey.findProgramAddress(
+  const [poolStakeAuthority] = PublicKey.findProgramAddressSync(
     [Buffer.from('stake_authority'), poolPubkey.toBuffer()],
     SINGLE_POOL_PROGRAM_ID
   );
+  console.log('Pool Stake Authority:', poolStakeAuthority.toBase58());
 
-  const [poolMintAuthority] = await PublicKey.findProgramAddress(
+  const [poolMintAuthority] = PublicKey.findProgramAddressSync(
     [Buffer.from('mint_authority'), poolPubkey.toBuffer()],
     SINGLE_POOL_PROGRAM_ID
   );
+  console.log('Pool Mint Authority:', poolMintAuthority.toBase58());
+
+  // Generate a new authority (this should ideally be provided by the user)
+  const newAuthority = Keypair.generate().publicKey;
+  console.log('New Authority:', newAuthority.toBase58());
 
   // Create the instruction data
-  const instructionData = Buffer.alloc(1 + 32 + 8);
-  instructionData.writeUInt8(4, 0); // Instruction index for WithdrawStake
-  userPublicKey.toBuffer().copy(instructionData, 1);
-  instructionData.writeBigUInt64LE(BigInt(amountInLamports), 33);
+  const args = new WithdrawStakeArgs(amountInLamports);
+  console.log('WithdrawStakeArgs:', args);
+  const instructionData = borsh.serialize(WithdrawStakeArgs.schema, args);
+  console.log('Instruction data (hex):', Buffer.from(instructionData).toString('hex'));
 
   const withdrawStakeIx = new TransactionInstruction({
     programId: SINGLE_POOL_PROGRAM_ID,
@@ -100,28 +97,39 @@ export const withdrawStakeFunc = async (
       { pubkey: poolMintAddress, isSigner: false, isWritable: true },
       { pubkey: poolStakeAuthority, isSigner: false, isWritable: false },
       { pubkey: poolMintAuthority, isSigner: false, isWritable: false },
-      { pubkey: newStakeAccount.publicKey, isSigner: false, isWritable: true },
-      { pubkey: userTokenAccount, isSigner: false, isWritable: true },
+      { pubkey: userStakePubkey, isSigner: false, isWritable: true },
+      { pubkey: userTokenPubkey, isSigner: false, isWritable: true },
+      { pubkey: newAuthority, isSigner: false, isWritable: false },
       { pubkey: SYSVAR_CLOCK_PUBKEY, isSigner: false, isWritable: false },
       { pubkey: TOKEN_PROGRAM_ID, isSigner: false, isWritable: false },
       { pubkey: StakeProgram.programId, isSigner: false, isWritable: false },
     ],
-    data: instructionData
+    data: Buffer.from(instructionData)
   });
 
-  // Create a new transaction and add all instructions
-  const transaction = new Transaction()
-    .add(createStakeAccountIx)
-    .add(createAtaIx)
-    .add(withdrawStakeIx);
+  console.log('Instruction keys:', withdrawStakeIx.keys.map(key => ({
+    pubkey: key.pubkey.toBase58(),
+    isSigner: key.isSigner,
+    isWritable: key.isWritable
+  })));
+
+  // Create a new transaction and add the withdraw stake instruction
+  const transaction = new Transaction().add(withdrawStakeIx);
 
   // Get the latest blockhash
   const { blockhash } = await connection.getLatestBlockhash();
   transaction.recentBlockhash = blockhash;
   transaction.feePayer = userPublicKey;
 
-  // Partially sign the transaction with the new stake account
-  transaction.partialSign(newStakeAccount);
+  console.log('Transaction:', {
+    recentBlockhash: transaction.recentBlockhash,
+    feePayer: transaction.feePayer.toBase58(),
+    instructions: transaction.instructions.length
+  });
+
+  console.log('Full transaction object:', JSON.stringify(transaction, (key, value) => 
+    typeof value === 'bigint' ? value.toString() : value
+  ));
 
   return transaction;
 };

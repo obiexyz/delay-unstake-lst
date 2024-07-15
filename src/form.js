@@ -73,7 +73,7 @@ const InputForm = () => {
             });
         }
     }, [wallet, connected, walletAddress]);
-
+   
     const handleUnstake = async () => {
         if (!publicKey || !selectedToken) {
             console.log('Wallet not connected or no token selected');
@@ -91,21 +91,45 @@ const InputForm = () => {
             
             console.log('Pool Address:', poolAddress);
     
+            // Get the associated token account for the user's pool tokens
             const poolTokenMint = new PublicKey(selectedToken);
+            const userTokenAccount = await getAssociatedTokenAddress(
+                poolTokenMint,
+                publicKey,
+                false,
+                TOKEN_PROGRAM_ID,
+                ASSOCIATED_TOKEN_PROGRAM_ID
+            );
     
-            let transaction = await withdrawStakeFunc(
+            console.log('User Token Account:', userTokenAccount.toString());
+    
+            // Derive the user's stake account address
+            const [userStakeAccount] = PublicKey.findProgramAddressSync(
+                [Buffer.from('user_stake'), publicKey.toBuffer(), new PublicKey(poolAddress).toBuffer()],
+                new PublicKey('SP12tWFxD9oJsVWNavTTBZvMbA6gkAmxtVgxdqvyvhY')
+            );
+    
+            console.log('User Stake Account:', userStakeAccount.toString());
+    
+            // Create the unstake transaction
+            const unstakeTransaction = await withdrawStakeFunc(
                 connection,
                 poolAddress,
                 publicKey,
-                poolTokenMint,
+                userTokenAccount.toString(),
+                userStakeAccount.toString(),
                 Number(amount)
             );
     
-            console.log('Unstake Transaction:', transaction);
+            console.log('Unstake Transaction:', unstakeTransaction);
     
-            const signature = await sendTransaction(transaction, connection);
+            // Sign and send the transaction
             console.log('Sending transaction...');
+            const signature = await sendTransaction(unstakeTransaction, connection);
+            console.log('Transaction sent. Signature:', signature);
             
+            // Wait for confirmation
+            console.log('Waiting for confirmation...');
             const confirmation = await connection.confirmTransaction(signature, 'confirmed');
             console.log('Transaction confirmation:', confirmation);
             
@@ -113,11 +137,18 @@ const InputForm = () => {
                 throw new Error(`Transaction failed: ${JSON.stringify(confirmation.value.err)}`);
             }
     
-            console.log('Unstake Transaction signature:', signature);
+            console.log('Unstake Transaction successful. Signature:', signature);
+            
         } catch (error) {
             console.error('Error unstaking:', error);
             if (error.logs) {
                 console.error('Transaction logs:', error.logs);
+            }
+            if (error.message) {
+                console.error('Error message:', error.message);
+            }
+            if (error.stack) {
+                console.error('Error stack:', error.stack);
             }
             setError(`Failed to unstake. Error: ${error.message}`);
         }
