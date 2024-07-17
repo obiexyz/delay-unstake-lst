@@ -29,7 +29,7 @@ import {
   solToLamports,
   findEphemeralStakeProgramAddress,
   findMetadataAddress,
-} from './utils';
+} from './utils/utils_index';
 import { StakePoolInstruction } from './instructions';
 import {
   StakeAccount,

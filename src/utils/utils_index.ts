@@ -1,7 +1,7 @@
 export * from './math';
 export * from './program-address';
 export * from './stake';
-export * from './instruction';
+export * from './utils_instruction';
 
 export function arrayChunk(array: any[], size: number): any[] {
   const result = [];

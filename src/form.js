@@ -3,9 +3,9 @@ import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { Connection, PublicKey, SystemProgram, StakeProgram, LAMPORTS_PER_SOL, Keypair, AccountInfo, Transaction, SendTransactionOptions, TransactionSignature, TransactionInstruction, SYSVAR_RENT_PUBKEY} from '@solana/web3.js';
 import { TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID, getAssociatedTokenAddress } from '@solana/spl-token';
 import { useFetchTokens } from './fetchTokens.js';
-import { withdrawStakeFunc } from './request.ts';
 import data from './sanctum-lst-list.json';
 import { findStakePool } from './tx-utils.ts';
+import { withdrawStake } from './withdrawStake.ts';
 
 console.log('Sanctum LST List:', data);
 
@@ -92,40 +92,27 @@ const InputForm = () => {
             console.log('Pool Address:', poolAddress);
     
             // Get the associated token account for the user's pool tokens
-            const poolTokenMint = new PublicKey(selectedToken);
-            const userTokenAccount = await getAssociatedTokenAddress(
-                poolTokenMint,
+            const userPoolTokenAccount = await getAssociatedTokenAddress(
+                new PublicKey(selectedToken),
                 publicKey,
                 false,
                 TOKEN_PROGRAM_ID,
                 ASSOCIATED_TOKEN_PROGRAM_ID
             );
     
-            console.log('User Token Account:', userTokenAccount.toString());
+            console.log('User Pool Token Account:', userPoolTokenAccount.toString());
     
-            // Derive the user's stake account address
-            const [userStakeAccount] = PublicKey.findProgramAddressSync(
-                [Buffer.from('user_stake'), publicKey.toBuffer(), new PublicKey(poolAddress).toBuffer()],
-                new PublicKey('SP12tWFxD9oJsVWNavTTBZvMbA6gkAmxtVgxdqvyvhY')
-            );
-    
-            console.log('User Stake Account:', userStakeAccount.toString());
-    
-            // Create the transaction
-            const transaction = await withdrawStakeFunc(
+            // Create the transaction using the new withdrawStake function
+            const transaction = await withdrawStake(
                 connection,
-                poolAddress,
+                new PublicKey(poolAddress),
                 publicKey,
-                userTokenAccount.toString(),
-                userStakeAccount.toString(),
-                Number(amount)
+                userPoolTokenAccount,
+                amount * LAMPORTS_PER_SOL // Convert to lamports
             );
     
-            // Sign the transaction
-            const signedTransaction = await wallet.signTransaction(transaction);
-    
-            // Send the signed transaction
-            const signature = await connection.sendRawTransaction(signedTransaction.serialize());
+            // Sign and send the transaction
+            const signature = await sendTransaction(transaction, connection);
     
             console.log('Unstake Transaction sent. Signature:', signature);
             

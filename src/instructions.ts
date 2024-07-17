@@ -10,7 +10,7 @@ import {
 } from '@solana/web3.js';
 import * as BufferLayout from '@solana/buffer-layout';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
-import { InstructionType, encodeData, decodeData } from './utils';
+import { InstructionType, encodeData, decodeData } from './utils/utils_index';
 import BN from 'bn.js';
 import {
   METADATA_MAX_NAME_LENGTH,
