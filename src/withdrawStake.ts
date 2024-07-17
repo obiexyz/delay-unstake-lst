@@ -6,60 +6,15 @@ import {
   Transaction,
   Connection,
   StakeProgram,
+  Keypair,
 } from '@solana/web3.js';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import BN from 'bn.js';
 
-// Import from existing files
 import { StakePoolLayout } from './layouts';
-import {
-  STAKE_POOL_INSTRUCTION_LAYOUTS,
-  StakePoolInstruction,
-} from './instructions';
+import { StakePoolInstruction } from './instructions';
 import { STAKE_POOL_PROGRAM_ID } from './constants';
-import { encodeData } from './utils/utils_index';
-
-export async function createWithdrawStakeInstruction(
-  stakePool: PublicKey,
-  validatorList: PublicKey,
-  withdrawAuthority: PublicKey,
-  stakeToSplit: PublicKey,
-  stakeToReceive: PublicKey,
-  userStakeAuthority: PublicKey,
-  userTransferAuthority: PublicKey,
-  userPoolToken: PublicKey,
-  managerFeeAccount: PublicKey,
-  poolMint: PublicKey,
-  lamports: number,
-): Promise<TransactionInstruction> {
-  const dataLayout = STAKE_POOL_INSTRUCTION_LAYOUTS.WithdrawStake;
-  const data = encodeData(dataLayout, {
-    instruction: StakePoolInstruction.withdrawStake,
-    lamports: new BN(lamports),
-  });
-
-  const keys = [
-    { pubkey: stakePool, isSigner: false, isWritable: true },
-    { pubkey: validatorList, isSigner: false, isWritable: true },
-    { pubkey: withdrawAuthority, isSigner: false, isWritable: false },
-    { pubkey: stakeToSplit, isSigner: false, isWritable: true },
-    { pubkey: stakeToReceive, isSigner: false, isWritable: true },
-    { pubkey: userStakeAuthority, isSigner: false, isWritable: false },
-    { pubkey: userTransferAuthority, isSigner: true, isWritable: false },
-    { pubkey: userPoolToken, isSigner: false, isWritable: true },
-    { pubkey: managerFeeAccount, isSigner: false, isWritable: true },
-    { pubkey: poolMint, isSigner: false, isWritable: true },
-    { pubkey: SYSVAR_CLOCK_PUBKEY, isSigner: false, isWritable: false },
-    { pubkey: TOKEN_PROGRAM_ID, isSigner: false, isWritable: false },
-    { pubkey: StakeProgram.programId, isSigner: false, isWritable: false },
-  ];
-
-  return new TransactionInstruction({
-    programId: STAKE_POOL_PROGRAM_ID,
-    keys,
-    data,
-  });
-}
+import { findStakeProgramAddress, findWithdrawAuthorityProgramAddress } from './utils/utils_index';
 
 export async function withdrawStake(
   connection: Connection,
@@ -68,33 +23,83 @@ export async function withdrawStake(
   userPoolTokenAccount: PublicKey,
   amount: number
 ): Promise<Transaction> {
+  console.log('Withdraw Stake function called with:');
+  console.log('Stake Pool Address:', stakePoolAddress.toBase58());
+  console.log('User Wallet:', userWallet.toBase58());
+  console.log('User Pool Token Account:', userPoolTokenAccount.toBase58());
+  console.log('Amount:', amount);
+  console.log('STAKE_POOL_PROGRAM_ID:', STAKE_POOL_PROGRAM_ID.toBase58());
+
   const stakePoolAccount = await connection.getAccountInfo(stakePoolAddress);
   if (!stakePoolAccount) {
     throw new Error('Stake pool not found');
   }
 
   const stakePool = StakePoolLayout.decode(stakePoolAccount.data);
+  console.log('Decoded Stake Pool:', stakePool);
 
-  const [withdrawAuthority] = await PublicKey.findProgramAddress(
-    [stakePoolAddress.toBuffer(), Buffer.from('withdraw')],
-    STAKE_POOL_PROGRAM_ID
+  const withdrawAuthority = await findWithdrawAuthorityProgramAddress(
+    STAKE_POOL_PROGRAM_ID,
+    stakePoolAddress
   );
+  console.log('Withdraw Authority:', withdrawAuthority.toBase58());
 
-  const withdrawInstruction = await createWithdrawStakeInstruction(
-    stakePoolAddress,
+  // Create a new stake account owned by the user
+  const newStakeAccount = Keypair.generate();
+  const lamports = await connection.getMinimumBalanceForRentExemption(StakeProgram.space);
+
+  const createAccountInstruction = SystemProgram.createAccount({
+    fromPubkey: userWallet,
+    newAccountPubkey: newStakeAccount.publicKey,
+    lamports,
+    space: StakeProgram.space,
+    programId: StakeProgram.programId,
+  });
+  console.log('New Stake Account:', newStakeAccount.publicKey.toBase58());
+
+  // Initialize the stake account
+  const initializeInstruction = StakeProgram.initialize({
+    stakePubkey: newStakeAccount.publicKey,
+    authorized: {
+      staker: userWallet,
+      withdrawer: userWallet,
+    },
+  });
+
+  // Find the validator stake account
+  const validatorStake = await findStakeProgramAddress(
+    STAKE_POOL_PROGRAM_ID,
     stakePool.validatorList,
-    withdrawAuthority,
-    stakePool.reserveStake,
-    stakePool.reserveStake, // Using reserve stake as stakeToReceive for simplicity
-    userWallet,
-    userWallet,
-    userPoolTokenAccount,
-    stakePool.managerFeeAccount,
-    stakePool.poolMint,
-    amount
+    stakePoolAddress
   );
+  console.log('Validator Stake:', validatorStake.toBase58());
 
-  const transaction = new Transaction().add(withdrawInstruction);
+  // Create the withdraw stake instruction using the StakePoolInstruction from instructions.ts
+  const withdrawInstruction = StakePoolInstruction.withdrawStake({
+    stakePool: stakePoolAddress,
+    validatorList: stakePool.validatorList,
+    validatorStake,
+    destinationStake: newStakeAccount.publicKey,
+    destinationStakeAuthority: userWallet,
+    sourceTransferAuthority: userWallet,
+    sourcePoolAccount: userPoolTokenAccount,
+    managerFeeAccount: stakePool.managerFeeAccount,
+    poolMint: stakePool.poolMint,
+    poolTokens: amount,
+    withdrawAuthority,
+  });
+  console.log('Withdraw Instruction:', withdrawInstruction);
+
+  const transaction = new Transaction()
+    .add(createAccountInstruction)
+    .add(initializeInstruction)
+    .add(withdrawInstruction);
+
+  transaction.feePayer = userWallet;
+  let { blockhash } = await connection.getRecentBlockhash();
+  transaction.recentBlockhash = blockhash;
+
+  console.log('Transaction:', transaction);
 
   return transaction;
 }

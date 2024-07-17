@@ -22,16 +22,16 @@ const InputForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    console.log('Pre-UseEffect- Wallet:', wallet);
-    console.log('Pre-UseEffect- Connected:', connected);
-    console.log("Pre-UseEffect- RPC Node:", process.env.REACT_APP_IRONFORGE_ENDPOINT);
-    console.log("Pre-UseEffect- Public Key (useWallet):", publicKey);
+    // console.log('Pre-UseEffect- Wallet:', wallet);
+    // console.log('Pre-UseEffect- Connected:', connected);
+    // console.log("Pre-UseEffect- RPC Node:", process.env.REACT_APP_IRONFORGE_ENDPOINT);
+    // console.log("Pre-UseEffect- Public Key (useWallet):", publicKey);
 
     useEffect(() => {
-        console.log('useEffect- running, wallet, connected, or walletAddress changed.');
+        // console.log('useEffect- running, wallet, connected, or walletAddress changed.');
         if (wallet && connected) {
-            console.log('useEffect- Wallet Adapter Output:', wallet.adapter.wallet.accounts[0].address);
-            console.log('useEffect- Wallet public key:', publicKey);
+            // console.log('useEffect- Wallet Adapter Output:', wallet.adapter.wallet.accounts[0].address);
+            // console.log('useEffect- Wallet public key:', publicKey);
      
             setIsLoading(true);
             setError(null);
@@ -103,6 +103,7 @@ const InputForm = () => {
             console.log('User Pool Token Account:', userPoolTokenAccount.toString());
     
             // Create the transaction using the new withdrawStake function
+            console.log('Creating transaction...');
             const transaction = await withdrawStake(
                 connection,
                 new PublicKey(poolAddress),
@@ -111,7 +112,10 @@ const InputForm = () => {
                 amount * LAMPORTS_PER_SOL // Convert to lamports
             );
     
+            console.log('Transaction created:', transaction);
+    
             // Sign and send the transaction
+            console.log('Sending transaction...');
             const signature = await sendTransaction(transaction, connection);
     
             console.log('Unstake Transaction sent. Signature:', signature);
@@ -127,6 +131,16 @@ const InputForm = () => {
     
             console.log('Unstake Transaction successful. Signature:', signature);
             
+            // Update the token balance after successful unstake
+            const updatedTokens = tokens.map(token => {
+                if (token.id === selectedToken) {
+                    return { ...token, balance: token.balance - amount };
+                }
+                return token;
+            });
+            setTokens(updatedTokens);
+            setSelectedTokenBalance(prevBalance => prevBalance - amount);
+            
         } catch (error) {
             console.error('Error unstaking:', error);
             if (error.logs) {
@@ -135,6 +149,7 @@ const InputForm = () => {
             setError(`Failed to unstake. Error: ${error.message}`);
         }
     };
+
 
     useEffect(() => {
         const selectedTokenData = tokens.find(token => token.id === selectedToken);
