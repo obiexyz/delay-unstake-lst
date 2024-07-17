@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
+    "@coral-xyz/borsh": "^0.30.1",
     "@iarna/toml": "^2.2.5",
     "@ledgerhq/devices": "^6.27.1",
     "@solana/spl-single-pool": "^1.0.0",
