@@ -111,8 +111,8 @@ const InputForm = () => {
     
             console.log('User Stake Account:', userStakeAccount.toString());
     
-            // Create the unstake transaction
-            const unstakeTransaction = await withdrawStakeFunc(
+            // Create the transaction
+            const transaction = await withdrawStakeFunc(
                 connection,
                 poolAddress,
                 publicKey,
@@ -121,12 +121,13 @@ const InputForm = () => {
                 Number(amount)
             );
     
-            console.log('Unstake Transaction:', unstakeTransaction);
+            // Sign the transaction
+            const signedTransaction = await wallet.signTransaction(transaction);
     
-            // Sign and send the transaction
-            console.log('Sending transaction...');
-            const signature = await sendTransaction(unstakeTransaction, connection);
-            console.log('Transaction sent. Signature:', signature);
+            // Send the signed transaction
+            const signature = await connection.sendRawTransaction(signedTransaction.serialize());
+    
+            console.log('Unstake Transaction sent. Signature:', signature);
             
             // Wait for confirmation
             console.log('Waiting for confirmation...');
@@ -143,12 +144,6 @@ const InputForm = () => {
             console.error('Error unstaking:', error);
             if (error.logs) {
                 console.error('Transaction logs:', error.logs);
-            }
-            if (error.message) {
-                console.error('Error message:', error.message);
-            }
-            if (error.stack) {
-                console.error('Error stack:', error.stack);
             }
             setError(`Failed to unstake. Error: ${error.message}`);
         }
